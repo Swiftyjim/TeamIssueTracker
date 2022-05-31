@@ -46,18 +46,19 @@
       </div>
     </div>
   </nav>
+  <br>
     <div class="container">
-        <form action="" id="inputsss">
+        <form action="" id="userInputs">
             <div class="mb-3">
                 <label for="username" class="form-label">Email address</label>
                 <input  class="form-control" id="username" placeholder="name@example.com">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="pswd rows="1"></textarea>
+                <input type="password" class="form-control" id="pswd" rows="1"></textarea>
             </div>
             <div>
-                <button class="submit" onclick="test()"> Submit </button>
+                <button class="submit" onclick="checkPswd()"> Submit </button>
             </div>
         </form>
         <p id="demo">hi</p>
@@ -75,10 +76,11 @@
 
     <script type="text/javascript">
       function checkPswd() {
-          var confirmPassword = "Password";
-          var confirmPassword2 = "Password2";
+          var username = "Jim"
+          var confirmPassword = "password";
+
           var password = document.getElementById("pswd").value;
-          alert(password);
+    
           if (password == confirmPassword || password == confirmPassword2) {
                window.location="www.google.com";
                document.getElementById('demo').innerHTML ="yes"
