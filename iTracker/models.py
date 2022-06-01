@@ -10,6 +10,7 @@ class Project(models.Model):
     Progressbar = models.IntegerField(default=0)
     taskID = models.AutoField(primary_key=True, editable=False)
     lastUpdate = models.DateTimeField(auto_now=True)
-
+    doing = models.BooleanField(default=False)
+    
     def __str__(self):
         return self.projectName

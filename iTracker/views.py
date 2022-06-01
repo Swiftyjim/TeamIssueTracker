@@ -10,15 +10,14 @@ def index(request):
         'allUsers':allUsers}
     return render(request,'iTracker/index.html',context)
 
-def myPage(request):
-    if request.user.is_authenticated:
-        user = User.objects.get(username=request.user.username)
+def myPage(request,userName):
+
+        user = User.objects.get(username=userName)
         currProj=Project.objects.filter(owner=user)
         context={'currProj':currProj,
             'user':user}
         return render(request,'iTracker/MyPage.html',context)
-    else:
-        return render(request,'iTracker/loginPage.html')
+
 
 def signUpPage(request):
     context=None
@@ -64,5 +63,6 @@ def tryLogIn(request):
 def about(request):
     return render(request,'iTracker/about.html')
 
-    def logout_view(request):
-        logout(request)
+def logout_view(request):
+    logout(request)
+    return logInPage(request)

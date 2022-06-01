@@ -49,7 +49,7 @@
               </li>
               {% if request.user.is_authenticated %}
                 <li class="nav-item">
-                  <a class="nav-link" href="/iTracker/myPage">Your Account</a>
+                  <a class="nav-link" href="/iTracker/myPage/{{request.user.username}}">Your Account</a>
                 </li>
               {% else %}
                 <li class="nav-item">
@@ -79,33 +79,26 @@
         <table class="table" scrolling="yes">
             <thead>
               <tr>
-                <th scope="col">Project</th>
+                <th scope="col">Task ID</th>
+                <th scope="col">Project Name</th>
                 <th scope="col">User</th>
-                <th scope="col">Current Progress</th>
-                <th scope="col">Data Issued</th>
-                <th scope="col">Deadline</th>
+                <th scope="col">Doing</th>
+                <th scope="col">Progress</th>
+                <th scope="col">Last Updated</th>
               </tr>
             </thead>
             <tbody>
               <ul>
-                {% if allProj  %}
-                <tr>
-                  <th scope="row">1</th>
-                  <td><a href="#" style="display:block;">Mark</a></td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>January 22,1999</td>
-                </tr> 
-                
-                {% else %}
-                <tr>
-                  <th scope="row">2</th>
-                  <td><a href="#" style="display:block;">hkfg</a></td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>January 22,1999</td>
-                </tr>
-                {% endif %}
+                {% for proj in allProj  %}
+                  <tr>
+                    <th scope="row">{{proj.taskID}}</th>
+                    <td><a href="#" style="display:block;">{{proj.projectName}}</a></td>
+                    <td>{{proj.owner.username}}</td>
+                    <td>{{proj.owner.doing}}</td>
+                    <td>{{proj.Progressbar}}</td>
+                    <td>{{proj.lastUpdate}}</td>
+                  </tr> 
+                {% endfor %}
               </ul>
             </tbody>
           </table>

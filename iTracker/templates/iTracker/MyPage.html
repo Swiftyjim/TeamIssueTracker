@@ -11,7 +11,7 @@
 <body>
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid"  style="background-color: aquamarine;">
-      <a class="navbar-brand" href="index.html" style="color: black;">Team Issue Tracker</a>
+      <a class="navbar-brand" href="/iTracker/" style="color: black;">Team Issue Tracker</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -20,7 +20,7 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         
           <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="index.html">Dashboard</a>
+              <a class="nav-link active" aria-current="page" href="/iTracker/">Dashboard</a>
           </li>
 
           <li class="nav-item dropdown">
@@ -35,7 +35,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="loginPage.html">Your Account</a>
+            <a class="nav-link" href="/iTracker/myPage/{{ request.user.username }}">Your Account</a>
           </li>
 
         </ul>
@@ -43,6 +43,9 @@
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit" onclick="myFunction()">Search</button>
         </form>
+        <li class="nav-item">
+          <a class="nav-link" href="/iTracker/myPage/logOut" style="text-align: right;">Sign Out<output></output></a>
+        </li>
       </div>
     </div>
   </nav>
@@ -51,12 +54,25 @@
     <table class="table" scrolling="yes">
         <thead>
           <tr>
-            <th scope="col">Project</th>
+            <th scope="col">Task ID</th>
+            <th scope="col">Project Name</th>
             <th scope="col">User</th>
+            <th scope="col">Doing</th>
             <th scope="col">Progress</th>
-            <th scope="col">Deadline</th>
+            <th scope="col">Last Updated</th>
           </tr>
         </thead>
+        <ul>
+          {% for proj in currProj  %}
+            <tr>
+              <th scope="row">{{proj.taskID}}</th>
+              <td><a href="#" style="display:block;">{{proj.projectName}}</a></td>
+              <td>{{proj.owner.username}}</td>
+              <td>{{proj.Progressbar}}</td>
+              <td>{{proj.lastUpdate}}</td>
+            </tr> 
+          {% endfor %}
+        </ul>
         <tbody>
           
         </tbody>
