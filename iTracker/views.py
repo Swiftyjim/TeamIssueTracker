@@ -11,12 +11,11 @@ def index(request):
     return render(request,'iTracker/index.html',context)
 
 def myPage(request,userName):
-
-        user = User.objects.get(username=userName)
-        currProj=Project.objects.filter(owner=user)
-        context={'currProj':currProj,
-            'user':user}
-        return render(request,'iTracker/MyPage.html',context)
+    user = User.objects.get(username=userName)
+    currProj=Project.objects.filter(owner=user)
+    context={'currProj':currProj,
+        'user':user}
+    return render(request,'iTracker/MyPage.html',context)
 
 
 def signUpPage(request):
@@ -65,4 +64,7 @@ def about(request):
 
 def logout_view(request):
     logout(request)
-    return logInPage(request)
+    return render(request,'iTracker/loginPage.html')
+
+def searchButton(request):
+    return 1
