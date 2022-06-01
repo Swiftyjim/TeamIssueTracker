@@ -5,97 +5,78 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Here</title>
-    <link rel="stylesheet" href="bootstrap-5.2.0-beta1-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>  
+    <style>
 
+    </style>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid"  style="background-color: aquamarine;">
-      <a class="navbar-brand" href="index.html" style="color: black;">Team Issue Tracker</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <div class="container-fluid"  style="background-color: rgb(29, 114, 226);">
+      <a class="navbar-brand" href="/iTracker/" style="color: black;"><center>Team Issue Tracker</center></a>
+  </nav>
+   
+    <br>
+    <div class="container-sm"  style="background-color: whitesmoke;">
+      <center><header> Sign up Here</header></center>
+        <form action = "/iTracker/logIn/validate" method="post">
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          {% csrf_token %}
+          <!-- Email input -->
+          <br>
+          <div class="form-outline mb-4">
+            <input type="username" class="form-control" name='user' value=""/>
+            <label class="form-label" for="form2Example1">username</label>
+          </div>
         
-          <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="index.html">Dashboard</a>
-          </li>
-
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-          
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="loginPage.html">Your Account</a>
-          </li>
-
-        </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <input type="password" class="form-control" name='pass' value=""/>
+            <label class="form-label" for="form2Example2">Password</label>
+          </div>
+        
+          <!-- 2 column grid layout for inline styling -->
+          <div class="row mb-4">
+            <div class="col d-flex justify-content-center">
+              <!-- Checkbox -->
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value=""  checked />
+                <label class="form-check-label" for="form2Example31"> Remember me </label>
+              </div>
+            </div>
+        
+            <div class="col">
+              <!-- Simple link -->
+              <a href="#!">Forgot password?</a>
+            </div>
+          </div>
+        
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-primary btn-block mb-4" onclick="">Sign in</button>
+        
+          <!-- Register buttons -->
+          <div class="text-center">
+            <p>Not a member? <a href="/iTracker/logInPage">Register</a></p>
+            <p>or sign up with:</p>
+            <button type="button" class="btn btn-link btn-floating mx-1">
+              <i class="fab fa-facebook-f"></i>
+            </button>
+        
+            <button type="button" class="btn btn-link btn-floating mx-1">
+              <i class="fab fa-google"></i>
+            </button>
+        
+            <button type="button" class="btn btn-link btn-floating mx-1">
+              <i class="fab fa-twitter"></i>
+            </button>
+        
+            <button type="button" class="btn btn-link btn-floating mx-1">
+              <i class="fab fa-github"></i>
+            </button>
+          </div>
         </form>
       </div>
-    </div>
-  </nav>
-  <br>
-    <div class="container">
-        <form action="" id="userInputs">
-            <div class="mb-3">
-                <label for="username" class="form-label">Email address</label>
-                <input  class="form-control" id="username" placeholder="name@example.com">
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="pswd" rows="1"></textarea>
-            </div>
-            <div>
-                <button class="submit" onclick="checkPswd()"> Submit </button>
-            </div>
-        </form>
-        <p id="demo">hi</p>
-    </div>
-    <div class="container">
-        <div id="message">
-            <h3>Password must contain the following:</h3>
-            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
-            <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-            <p id="number" class="invalid">A <b>number</b></p>
-            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
-        </div>
-    </div>
-    <script src="bootstrap-5.2.0-beta1-dist/js/bootstrap.js"></script>
-
-    <script type="text/javascript">
-      function checkPswd() {
-          var username = "Jim"
-          var confirmPassword = "password";
-
-          var password = document.getElementById("pswd").value;
-    
-          if (password == confirmPassword || password == confirmPassword2) {
-               window.location="www.google.com";
-               document.getElementById('demo').innerHTML ="yes"
-          }
-          else{
-              alert("Incorrect Password For This Account.");
-              document.getElementById("demo").innerHTML ="no"
-          }
-      }
-  </script>
-  <script type="text/javascript">
-    function test() {
-            var password = document.getElementById("pswd").value;
-            alert(password);
-    }
-</script>
 </body>
 </html>
