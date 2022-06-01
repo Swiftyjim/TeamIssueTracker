@@ -3,13 +3,17 @@ from django.http import HttpResponse
 from .models import *
 # Create your views here.
 def index(request):
+    context=None
     return render(request,'iTracker/index.html')
 
 def myPage(request,idNumber):
-    return render(request,'iTracker/MyPage.html',{'idNumber':1})
+    context={'idNumber':idNumber}
+    return render(request,'iTracker/MyPage.html',context)
 
 def logIn(request):
-    return render(request,'iTracker/loginPage.html')
+    context=None
+    return render(request,'iTracker/loginPage.html',context)
 
 def about(request):
-    return render(request,'iTracker/about.html')
+    context=None
+    return render(request,'iTracker/about.html',context)
