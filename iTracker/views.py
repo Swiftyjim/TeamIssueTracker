@@ -6,7 +6,7 @@ def index(request):
     return render(request,'iTracker/index.html')
 
 def myPage(request,idNumber):
-    return render(request,'iTracker/MyPage.html',idNumber)
+    return render(request,'iTracker/MyPage.html',{'idNumber':1})
 
 def logIn(request):
     return render(request,'iTracker/loginPage.html')
