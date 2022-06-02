@@ -46,7 +46,10 @@ def createNewProj(ownerObj,name,description):
  
 
 def logInPage(request):
-    return render(request,'iTracker/loginPage.html')
+    if request.user.is_authenticated:
+        return myPage(request,request.user.username)
+    else:
+        return render(request,'iTracker/loginPage.html')
 
 def tryLogIn(request):
     if request.method == 'POST':
@@ -55,7 +58,7 @@ def tryLogIn(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return myPage(request)   
+            return myPage(request,username)   
     
     return logInPage(request)
 

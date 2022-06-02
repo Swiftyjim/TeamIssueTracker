@@ -8,36 +8,41 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>  
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/b85eb17943.js" crossorigin="anonymous"></script>
     <style>
-
+      body{
+        background: white url(sky_background.jpg) no-repeat;
+      }
     </style>
+    
 </head>
 <body>
   <nav class="navbar navbar-expand-lg bg-light">
-    <div class="container-fluid"  style="background-color: rgb(29, 114, 226);">
-      <a class="navbar-brand" href="/iTracker/" style="color: black;"><center>Team Issue Tracker</center></a>
+    <div class="container-fluid"  style="background-color: rgb(223, 107, 39);">
+      <a class="navbar-brand" href="/iTracker/" style="color: black;">Team Issue Tracker</a>
   </nav>
    
     <br>
     <div class="container-sm"  style="background-color: whitesmoke;">
-      <center><header> Sign up Here</header></center>
+      <center><h1> <b>iTracker</b> </h1></center>
+      {% load static %}
+          <center><img src="{% static 'iTracker/ladybug.jpg' %}" alt="logo"></center>
+        
         <form action = "/iTracker/logIn/validate" method="post">
 
           {% csrf_token %}
           <!-- Email input -->
           <br>
           <div class="form-outline mb-4">
+            <label class="form-label" for="form2Example1">Username</label>
             <input type="username" class="form-control" name='user' value=""/>
-            <label class="form-label" for="form2Example1">username</label>
           </div>
         
           <!-- Password input -->
           <div class="form-outline mb-4">
-            <input type="password" class="form-control" name='pass' value=""/>
             <label class="form-label" for="form2Example2">Password</label>
+            <input type="password" class="form-control" name='pass' value=""/>
           </div>
-        
           <!-- 2 column grid layout for inline styling -->
           <div class="row mb-4">
             <div class="col d-flex justify-content-center">
