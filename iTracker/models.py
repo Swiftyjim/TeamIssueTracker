@@ -15,14 +15,14 @@ class Project(models.Model):
     def __str__(self):
         return self.projectName
 
-class Team(models.Model):
-    name = models.CharField(max_length=64, unique=True)
-    description = models.TextField(max_length=1024)
-    logo = models.ImageField()
-    members = models.ForeignKey(UserManager,on_delete=models.CASCADE)
+# class Team(models.Model):
+#     name = models.CharField(max_length=64, unique=True)
+#     description = models.TextField(max_length=1024)
+#     logo = models.ImageField()
+#     members = models.ForeignKey(UserManager,on_delete=models.CASCADE)
 
-class UserManager(models.Manager):
-    use_for_related_fields = True
+# class UserManager(models.Manager):
+#     use_for_related_fields = True
 
     # def add_player(self, user, team):
     #     # ... your code here ...
