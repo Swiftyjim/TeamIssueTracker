@@ -20,9 +20,13 @@ def myPage(request,userName):
 
 def signUpPage(request):
     context=None
-    return HttpResponse('Sign up here')#render(request,'iTracker/loginPage.html',context)
+    return render(request,'iTracker/signUPage.html',context)
 
-def signUp(usernameINPUT,passwordINPUT,firstINPUT,lastINPUT,emailINPUT):
+def register(request):
+    firstINPUT = request.POST['firstName']
+    lastInput = request.POST['lastName']
+    usernameINPUT = request.POST['userName']
+    passwordINPUT = request.POST['passWord']
     user = User.objects.create_user(
         username = usernameINPUT,
         password = passwordINPUT,
@@ -31,7 +35,8 @@ def signUp(usernameINPUT,passwordINPUT,firstINPUT,lastINPUT,emailINPUT):
         email = emailINPUT
     )
     user.save()
- 
+    login(request,user)
+    return myPage(request,usernameINPUT)
 
 def newProjectForm(request):
     return render(request,'iTracker/')
