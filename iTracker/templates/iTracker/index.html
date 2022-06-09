@@ -93,10 +93,10 @@
             </thead>
             <tbody>
               <ul>
-                {% for proj in allProj  %}
+                {% for proj in allProjects  %}
                   <tr>
                     <th scope="row">{{proj.taskID}}</th>
-                    <td><a href="#" style="display:block;">{{proj.projectName}}</a></td>
+                    <td><a href="iTracker/thisProject/{{proj.taskID}}" style="display:block;">{{proj.projectName}}</a></td>
                     <td>{{proj.owner.username}}</td>
                     <td>{{proj.owner.doing}}</td>
                     <td>{{proj.Progressbar}}</td>

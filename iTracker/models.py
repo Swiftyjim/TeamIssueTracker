@@ -8,10 +8,13 @@ class Team(models.Model):
     name = models.CharField(max_length=64, unique=True)
     teamID = models.AutoField(primary_key=True, editable=False)
     description = models.TextField(max_length=1024)
-    
+
+    def __str__(self):
+        return self.name + ': ' + self.description
+
 class UserExtended(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    teamMember = models.ForeignKey(Team,on_delete=models.CASCADE)
+    teamMember = models.ForeignKey(Team,on_delete=models.CASCADE,null=True)
     birthday = models.DateTimeField()
 
     def __str__(self):
