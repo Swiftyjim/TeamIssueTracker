@@ -76,3 +76,6 @@ def logout_view(request):
 
 def searchButton(request):
     return 1
+
+def thisProject(request):
+    return 1

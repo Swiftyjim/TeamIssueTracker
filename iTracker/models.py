@@ -1,7 +1,22 @@
 
+from ast import Delete
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
+
+class Team(models.Model):
+    name = models.CharField(max_length=64, unique=True)
+    teamID = models.AutoField(primary_key=True, editable=False)
+    description = models.TextField(max_length=1024)
+    
+class UserExtended(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    teamMember = models.ForeignKey(Team,on_delete=models.CASCADE)
+    birthday = models.DateTimeField()
+
+    def __str__(self):
+        return self.user.username
+
 
 class Project(models.Model):
     owner = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -11,21 +26,12 @@ class Project(models.Model):
     taskID = models.AutoField(primary_key=True, editable=False)
     lastUpdate = models.DateTimeField(auto_now=True)
     doing = models.BooleanField(default=False)
-    
+    team = models.ForeignKey(Team,on_delete=models.CASCADE,null=True)
+
     def __str__(self):
         return self.projectName
 
-# class Team(models.Model):
-#     name = models.CharField(max_length=64, unique=True)
-#     description = models.TextField(max_length=1024)
-#     logo = models.ImageField()
-#     members = models.ForeignKey(UserManager,on_delete=models.CASCADE)
 
-# class UserManager(models.Manager):
-#     use_for_related_fields = True
+    # logo = models.ImageField()
 
-    # def add_player(self, user, team):
-    #     # ... your code here ...
 
-    # def remove_player(self, user, team):
-        # ... your code here ...
