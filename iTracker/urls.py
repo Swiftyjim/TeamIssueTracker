@@ -2,7 +2,8 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.homePage, name='homePage'),
+    path('Dashboard/Team/<int:teamID>', views.index, name='index'),
     path('logIn/', views.logInPage, name='logIn'),
     path('signUp/', views.signUpPage, name='signUp'),
     path('signUp/register', views.register, name='register'),
@@ -11,5 +12,4 @@ urlpatterns = [
     path('myPage/logOut', views.logout_view, name='logout_view'),
     path('myPage/<str:userName>', views.myPage, name='myPage'),
     path('project/<int:taskID>', views.thisProject, name='projectPage')
-   
 ]

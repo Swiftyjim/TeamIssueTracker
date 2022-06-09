@@ -16,14 +16,14 @@
 <body>
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid"  style="background-color: rgb(223, 107, 39);">
-      <a class="navbar-brand" href="/iTracker/" style="color: black;">Team Issue Tracker</a>
+      <a class="navbar-brand" href="#" style="color: black;">Team Issue Tracker</a>
   </nav>
    
     <br>
     <div class="container-sm rounded"  style="background-color: whitesmoke;">
       <center><h1> <b>iTracker</b> </h1></center>
       {% load static %}
-          <center><img src="{% static 'iTracker/ladybug.jpg' %}" alt="logo"></center>
+          <center><img src="{% static 'iTracker/images/ladybug.jpg' %}" alt="logo"></center>
         
         <form action = "/iTracker/logIn/validate" method="post">
 
@@ -81,5 +81,17 @@
           </div>
         </form>
       </div>
+      <div class="container" id="footer"  style="background-color: white;">
+        <footer class="py-3 my-4">
+          <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="\iTracker" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="https://github.com/Swiftyjim/TeamIssueTracker" class="nav-link px-2 text-muted">Git Page</a></li>
+            <li class="nav-item"><a href="/iTracker/about" class="nav-link px-2 text-muted">FAQs</a></li>
+            <li class="nav-item"><a href="/iTracker/about" class="nav-link px-2 text-muted">About</a></li>
+          </ul>
+          <p class="text-center text-muted">2022 Task Tracker</p>
+        </footer>
+        </div>
+       </div>
 </body>
 </html>

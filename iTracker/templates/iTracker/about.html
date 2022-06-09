@@ -9,43 +9,54 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav class="navbar bg-light">
-        <div class="container-fluid"  style="background-color: aquamarine;">
-          <a class="navbar-brand" href="index.html" style="color: black;">Team Issue Tracker</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.html">Dashboard</a>
-                </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About me</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="loginPage.html">Your Account</a>
-              </li>
+  <nav class="navbar navbar-expand-lg bg-light" style="background-color: rgb(201, 72, 40);" >
+    <div class="container-fluid"  style="background-color: rgb(201, 72, 40);">
+      {% load static %}
+      <img src="{% static 'iTracker/images/ladybug.jpg' %}" alt="logo" width="35" height="35">
+      <a class="navbar-brand" href="/iTracker" style="color: black;">Team Issue Tracker</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/iTracker/" style="color: black;">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/iTracker/about" style="color: black;">About Us</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: black;">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
             </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-          </div>
-        </div>
-      </nav>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="container-fluid" style="background-color: rgb(201, 72, 40);">
+      <ul class="navbar-nav ml-auto">
+        <li>
+          <form class="d-flex" role="search" id="SearchBar">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button type="button" class="btn btn-primary">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+        </li>
+        {% if request.user.is_authenticated %}
+          <li class="nav-item" style="text-align: left;">
+            <a class="nav-link" href="/iTracker/myPage/{{request.user.username}}" style="color: black;">Your Account</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="/iTracker/logIn" style="color: black;">Sign in</a>
+          </li>
+        {% endif %}
+        </ul>
+    </div>
+  </nav>
 <h1>Hello-Bootstrap</h1>
 <h2>About this Project</h2>
 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque minus voluptas suscipit ipsam recusandae sint eligendi a aliquam cupiditate perspiciatis quia laboriosam dignissimos iusto similique, sit et commodi sapiente? Necessitatibus suscipit sint amet atque, quibusdam esse alias dolore aut mollitia repellendus, voluptates at exercitationem nesciunt nostrum deleniti in fuga incidunt eius dolorem modi, sunt dicta? Animi sint impedit, consectetur molestias, consequatur modi atque, autem debitis odio facere soluta! Ad repudiandae delectus aperiam perferendis iste nobis officia dolore molestias pariatur aspernatur perspiciatis sunt ea sint atque distinctio odit esse, error totam earum! Dignissimos qui reiciendis dolores aut, eveniet eum sint quia!</p>
@@ -61,5 +72,6 @@
     </footer>
     </div>
    </div>
+   
 </body>
 </html>

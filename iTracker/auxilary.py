@@ -14,3 +14,11 @@ def signUp_aux(usernameInput,passwordInput ,firstInput,lastInput,emailInput,birt
     AddInfo.save()
     user.save()
     return user
+
+def createNewProj(ownerObj,name,description):
+newProj = Project(
+    owner = ownerObj,
+    projectName = name,
+    description  = description,
+)
+newProj.save()
