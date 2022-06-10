@@ -17,7 +17,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/iTracker/" style="color: black;">Dashboard</a>
+              <a class="nav-link active" aria-current="page" href="/iTracker/Dashboard/Team/ {{userX.teamMember.teamID}} " style="color: black;">Dashboard</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/iTracker/about" style="color: black;">About Us</a>
@@ -62,8 +62,9 @@
 
 <div class="container">
   <div class="container">
-    <h1>Hello {{ user.first_name }}</h1>
-    <button> Create New Project </button>
+    <h1>Hello {{ userX.user.first_name }}</h1>
+    <h4>Team: {{userX.teamMember}}</h4>
+    <a class=" nav-link btn btn-primary" href="/iTracker/createNewProject">Create New Project</a>
   </div>
   <br><br>
   
@@ -81,11 +82,16 @@
           </tr>
         </thead>
         <ul>
-          {% for proj in currProj  %}
+          {% for proj in currentProjects  %}
             <tr>
               <th scope="row">{{proj.taskID}}</th>
               <td><a href="iTracker/thisProject/" style="display:block;">{{proj.projectName}}</a></td>
               <td>{{proj.owner.username}}</td>
+              {% if proj.doing %}
+              <td>In Progress</td>
+              {% else %}
+              <td>On hold</td>
+              {% endif %}
               <td>{{proj.Progressbar}}</td>
               <td>{{proj.lastUpdate}}</td>
             </tr> 

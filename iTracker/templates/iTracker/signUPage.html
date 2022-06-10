@@ -74,9 +74,8 @@
                     <label class="form-label select-label">Choose Team: </label>  
                     <select class="select form-control-lg">
                       <option  disabled>Choose Group</option>
-                      <option >Not a member</option>
                       {% for T in Teams  %}
-                      <option >{{T.name}}</option>
+                      <option value="{{ T.name }}">{{T.name}}</option>
                       {% endfor %}
                     </select>
                   </div>

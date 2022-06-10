@@ -22,10 +22,10 @@ def index(request):
 
 def myPage(request,userName):
     if request.user.is_authenticated:
-        user = User.objects.get(username=userName)
-        currentProjects=Project.objects.filter(owner=user)
+        userX = UserExtended.objects.get(user=User.objects.get(username=userName))
+        currentProjects=Project.objects.filter(owner=userX.user)
         context={'currentProjects':currentProjects,
-            'user':user}
+            'userX':userX}
         return render(request,'iTracker/MyPage.html',context)
     else:
         response = redirect('logIn/')
@@ -43,7 +43,7 @@ def register(request):
     emailInput = request.POST['email']
     birthdayInput= request.POST['birthday']
     teamInput = request.POST['team']
-    user = signUp_aux(usernameInput,passwordInput ,firstInput,lastInput,emailInput,birthdayInput,teamInput)
+    user = signUp_aux(usernameInput,passwordInput ,firstInput,lastInput,emailInput,birthdayInput,Team.objects.get(name=teamInput))
     login(request,user)
     return myPage(request,usernameINPUT)
 
@@ -87,8 +87,21 @@ def thisProject(request,taskID):
     return render(request, 'iTracker/thisProject.html',context)
 
 def NewProjectpage(request):
-    return render(request, 'iTracker/newProject.html',context)
+    temp =UserExtended.objects.get(user=request.user)
+    temp.teamMember
+    teamMembers = UserExtended.objects.filter(teamMember = temp.teamMember)
+    context={'teamMembers':teamMembers}
+    return render(request, 'iTracker/createNewProject.html',context)
 
 def processNewProject(request):
-    projectNameInput = request.POST['user']
-    projectDescriptionInput = request.POST['pass']
+    projectNameInput = request.POST['projName']
+    projectDescriptionInput = request.POST['projDesc']
+    projectOwnerInput = request.POST['projOwner']
+    createNewProj(projectOwnerInput,projectNameInput,projectDescriptionInput)
+    currentProjects=Project.objects.filter(owner=request.user)
+    context={
+        'currentProjects':currentProjects
+    }
+    response = redirect('iTracker/myPage/'+request.user.username)
+    return response
+    

@@ -1,4 +1,6 @@
 from django.urls import path, include
+
+from iTracker.auxilary import createNewProj
 from . import views
 
 urlpatterns = [
@@ -10,6 +12,9 @@ urlpatterns = [
     path('logIn/validate', views.tryLogIn, name='tryLogIn'),
     path('about/', views.about, name='about'),
     path('myPage/logOut', views.logout_view, name='logout_view'),
+    path('createNewProject/validate',views.processNewProject,name='processNewProject'),
+    path('createNewProject/', views.NewProjectpage,name ='newProjectPage'),
     path('myPage/<str:userName>', views.myPage, name='myPage'),
-    path('project/<int:taskID>', views.thisProject, name='projectPage')
+    path('project/<int:taskID>', views.thisProject, name='projectPage'),
+    
 ]

@@ -14,7 +14,7 @@ class Team(models.Model):
 
 class UserExtended(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    teamMember = models.ForeignKey(Team,on_delete=models.CASCADE,null=True)
+    teamMember = models.ForeignKey(Team,on_delete=models.CASCADE)
     birthday = models.DateTimeField()
 
     def __str__(self):
@@ -30,6 +30,7 @@ class Project(models.Model):
     lastUpdate = models.DateTimeField(auto_now=True)
     doing = models.BooleanField(default=False)
     team = models.ForeignKey(Team,on_delete=models.CASCADE,null=True)
+    relatedTaskID = models.IntegerField(default=0)
 
     def __str__(self):
         return self.projectName
