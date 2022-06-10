@@ -85,7 +85,7 @@
           {% for proj in currentProjects  %}
             <tr>
               <th scope="row">{{proj.taskID}}</th>
-              <td><a href="iTracker/thisProject/" style="display:block;">{{proj.projectName}}</a></td>
+              <td><a href="/iTracker/project/{{ proj.taskID }}" style="display:block;">{{proj.projectName}}</a></td>
               <td>{{proj.owner.username}}</td>
               {% if proj.doing %}
               <td>In Progress</td>

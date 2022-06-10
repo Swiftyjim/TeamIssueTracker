@@ -13,11 +13,9 @@ def homePage(request):
     context={}
     return render(request,'iTracker/homePage.html',context)
 
-def index(request):
-    allProj=Project.objects.all()
-    allUsers = User.objects.all()
-    context={'allProjects':allProj,
-        'allUsers':allUsers}
+def index(request,teamID):
+    allProj=Project.objects.filter(team = Team.objects.get(teamID= teamID))
+    context={'allProjects':allProj}
     return render(request,'iTracker/index.html',context)
 
 def myPage(request,userName):
@@ -97,11 +95,12 @@ def processNewProject(request):
     projectNameInput = request.POST['projName']
     projectDescriptionInput = request.POST['projDesc']
     projectOwnerInput = request.POST['projOwner']
-    createNewProj(projectOwnerInput,projectNameInput,projectDescriptionInput)
+    createNewProj(User.objects.get(username=projectOwnerInput),projectNameInput,projectDescriptionInput)
     currentProjects=Project.objects.filter(owner=request.user)
     context={
         'currentProjects':currentProjects
     }
-    response = redirect('iTracker/myPage/'+request.user.username)
-    return response
+    temp=UserExtended.objects.get(user=request.user)
+    temp.teamMember.teamID
+    return redirect('/iTracker/Dashboard/Team/'+str(temp.teamMember.teamID))
     

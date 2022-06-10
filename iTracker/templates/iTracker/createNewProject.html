@@ -83,7 +83,7 @@
         <select class="select form-control-lg" name="projOwner">
             <option value="">No Owner</option>
             {% for member in teamMembers  %}
-            <option value="{{ member.user }}">{{member.user.username}}</option>
+            <option value="{{ member.user.username }}">{{member.user.username}}</option>
             {% endfor %}
         </select>
         </div>

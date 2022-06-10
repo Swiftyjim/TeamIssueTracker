@@ -1,5 +1,6 @@
 
 from ast import Delete
+from statistics import mode
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
@@ -31,11 +32,17 @@ class Project(models.Model):
     doing = models.BooleanField(default=False)
     team = models.ForeignKey(Team,on_delete=models.CASCADE,null=True)
     relatedTaskID = models.IntegerField(default=0)
-
+    discussion = models.ForeignKey(Discussion,on_delete=models.CASCADE)
+    
     def __str__(self):
         return self.projectName
 
 
     # logo = models.ImageField()
-
+class Discussion(models.Model):
+    project = models.ForeignKey(Project,blank=True,on_delete=models.CASCADE)
+    discuss = models.CharField(max_length=1000)
+ 
+    def __str__(self):
+        return str(self.forum.name)
 
