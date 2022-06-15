@@ -11,7 +11,8 @@ from .auxilary import *
 
 # Create your views here.
 def homePage(request):
-    context={}
+    userX=UserExtended.objects.get(user=request.user)
+    context={'userX':userX}
     return render(request,'iTracker/homePage.html',context)
 
 def index(request,teamID):
@@ -82,9 +83,10 @@ def searchButton(request):
 
 def thisProject(request,taskID):
     project = Project.objects.get(taskID=taskID)
-    user = UserExtended.objects.get(user = request.user)
+    userX = UserExtended.objects.get(user = request.user)
     comments = Comment.objects.filter(project= project)
-    context= {'project':project,'user':user,'comments':comments}
+    teamMembers = UserExtended.objects.filter(team=userX.team)
+    context= {'project':project,'user':userX,'comments':comments,'teamMembers':teamMembers}
     return render(request, 'iTracker/project.html',context)
 
 def NewProjectpage(request):
@@ -118,3 +120,10 @@ def closeTask(request,taskID):
     temp=UserExtended.objects.get(user=request.user)
     temp.team.teamID
     return redirect('/iTracker/Dashboard/Team/'+str(temp.team.teamID))
+
+def assignOwner(request,taskID):
+    assignedUsername = request.POST['assignee']
+    proj = Project.objects.get(taskID= taskID)
+    proj.owner = UserExtended.objects.get(User.objects.get(username=assignedUsername))
+    proj.save()
+    return redirect('/iTracker/project/'+str(taskID))
