@@ -16,5 +16,6 @@ urlpatterns = [
     path('createNewProject/', views.NewProjectpage,name ='newProjectPage'),
     path('myPage/<str:userName>', views.myPage, name='myPage'),
     path('project/<int:taskID>', views.thisProject, name='projectPage'),
-    
+    path('project/<int:taskID>/post', views.postComment, name='postComment'),
+    path('project/<int:taskID>/closeTask',views.closeTask,name='closeTask'),
 ]

@@ -2,8 +2,9 @@ from ast import Index
 from multiprocessing import context
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-
+from django.utils import timezone
 import iTracker
+
 from .models import *
 from django.contrib.auth import authenticate,login, logout
 from .auxilary import *
@@ -14,14 +15,14 @@ def homePage(request):
     return render(request,'iTracker/homePage.html',context)
 
 def index(request,teamID):
-    allProj=Project.objects.filter(team = Team.objects.get(teamID= teamID))
-    context={'allProjects':allProj}
+    allProjects=Project.objects.filter(team = Team.objects.get(teamID= teamID))
+    context={'allProjects':allProjects,'userX':UserExtended.objects.get(user=request.user)}
     return render(request,'iTracker/index.html',context)
 
 def myPage(request,userName):
     if request.user.is_authenticated:
         userX = UserExtended.objects.get(user=User.objects.get(username=userName))
-        currentProjects=Project.objects.filter(owner=userX.user)
+        currentProjects=Project.objects.filter(owner=userX)
         context={'currentProjects':currentProjects,
             'userX':userX}
         return render(request,'iTracker/MyPage.html',context)
@@ -49,7 +50,7 @@ def register(request):
 def logInPage(request):
     if request.user.is_authenticated:
         temp = UserExtended.objects.get(user=request.user)
-        response = redirect('Dashboard/Team/'+str(temp.teamMember.teamID))
+        response = redirect('Dashboard/Team/'+str(temp.team.teamID))
         return response
     else:
         return render(request,'iTracker/loginPage.html')
@@ -69,7 +70,8 @@ def tryLogIn(request):
     return logInPage(request)
 
 def about(request):
-    return render(request,'iTracker/about.html')
+    context={UserExtended.objects.get(user=request.user)}
+    return render(request,'iTracker/about.html',context)
 
 def logout_view(request):
     logout(request)
@@ -80,27 +82,39 @@ def searchButton(request):
 
 def thisProject(request,taskID):
     project = Project.objects.get(taskID=taskID)
-    user = request.user
-    context= {'project':project,'user':user}
-    return render(request, 'iTracker/thisProject.html',context)
+    user = UserExtended.objects.get(user = request.user)
+    comments = Comment.objects.filter(project= project)
+    context= {'project':project,'user':user,'comments':comments}
+    return render(request, 'iTracker/project.html',context)
 
 def NewProjectpage(request):
     temp =UserExtended.objects.get(user=request.user)
-    temp.teamMember
-    teamMembers = UserExtended.objects.filter(teamMember = temp.teamMember)
-    context={'teamMembers':teamMembers}
-    return render(request, 'iTracker/createNewProject.html',context)
+    temp.team
+    teams = UserExtended.objects.filter(team = temp.team)
+    context={'teams':teams}
+    return render(request, 'iTracker/newProject.html',context)
 
 def processNewProject(request):
     projectNameInput = request.POST['projName']
     projectDescriptionInput = request.POST['projDesc']
     projectOwnerInput = request.POST['projOwner']
-    createNewProj(User.objects.get(username=projectOwnerInput),projectNameInput,projectDescriptionInput)
-    currentProjects=Project.objects.filter(owner=request.user)
+    createNewProj(UserExtended.objects.get(user=User.objects.get(username=projectOwnerInput)),projectNameInput,projectDescriptionInput)
+    currentProjects=Project.objects.filter(owner=UserExtended.objects.get(user=request.user))
     context={
         'currentProjects':currentProjects
     }
     temp=UserExtended.objects.get(user=request.user)
-    temp.teamMember.teamID
-    return redirect('/iTracker/Dashboard/Team/'+str(temp.teamMember.teamID))
-    
+    temp.team.teamID
+    return redirect('/iTracker/Dashboard/Team/'+str(temp.team.teamID))
+
+def postComment(request,taskID):
+     commentInput = request.POST['comment']
+     newPost = Comment(description = commentInput, user = request.user, time = timezone.now, project=Project.objects.get(taskID = taskID)) 
+     newPost.save()
+     return redirect('/iTracker/project/'+str(taskID))
+
+def closeTask(request,taskID):
+    proj = Project.objects.filter(taskID=taskID).delete()
+    temp=UserExtended.objects.get(user=request.user)
+    temp.team.teamID
+    return redirect('/iTracker/Dashboard/Team/'+str(temp.team.teamID))

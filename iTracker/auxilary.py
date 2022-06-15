@@ -10,7 +10,7 @@ def signUp_aux(usernameInput,passwordInput ,firstInput,lastInput,emailInput,birt
         last_name = lastInput,
         email = emailInput
     )
-    userExtended = UserExtended(user=user,birthday=birthdayInput,teamMember = teamInput)
+    userExtended = UserExtended(user=user,birthday=birthdayInput,team = teamInput)
     userExtended.save()
     user.save()
     return userExtended
@@ -20,6 +20,7 @@ def createNewProj(ownerObj,name,description):
         owner = ownerObj,
         projectName = name,
         description  = description,
+        team = ownerObj.team,
     )
     newProj.save()
     return newProj
