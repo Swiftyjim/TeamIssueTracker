@@ -87,13 +87,13 @@ def thisProject(request,taskID):
     userX = UserExtended.objects.get(user = request.user)
     comments = Comment.objects.filter(project= project)
     teamMembers = UserExtended.objects.filter(team=userX.team)
-    context= {'project':project,'user':userX,'comments':comments,'teamMembers':teamMembers}
+    context= {'project':project,'userX':userX,'comments':comments,'teamMembers':teamMembers}
     return render(request, 'iTracker/project.html',context)
 
-def NewProjectpage(request):
-    temp =UserExtended.objects.get(user=request.user)
-    teamMembers = UserExtended.objects.filter(team = temp.team)
-    context={'teamsMembers':teamMembers}
+def NewProject(request):
+    userX =UserExtended.objects.get(user=request.user)
+    teamMembers = UserExtended.objects.filter(team = userX.team)
+    context={'teamMembers':teamMembers}
     return render(request, 'iTracker/newProject.html',context)
 
 def processNewProject(request):
@@ -105,9 +105,8 @@ def processNewProject(request):
     context={
         'currentProjects':currentProjects
     }
-    temp=UserExtended.objects.get(user=request.user)
-    temp.team.teamID
-    return redirect('/iTracker/Dashboard/Team/'+str(temp.team.teamID))
+    userX=UserExtended.objects.get(user=request.user)
+    return redirect('/iTracker/Dashboard/Team/'+str(userX.team.teamID),context)
 
 def postComment(request,taskID):
      commentInput = request.POST['comment']
