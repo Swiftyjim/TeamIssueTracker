@@ -1,12 +1,14 @@
 h1 {
     color: black;
-    text-align: center;
   }
 body {
   background-color: rgb(102, 141, 214);
 }
 a{
   color: black;
+}
+.container{
+  background-color: blue;
 }
 #topnav{
   background-color: rgb(201, 72, 40);

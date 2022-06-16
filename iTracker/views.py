@@ -71,7 +71,8 @@ def tryLogIn(request):
     return logInPage(request)
 
 def about(request):
-    context={UserExtended.objects.get(user=request.user)}
+    userX= UserExtended.objects.get(user=request.user)
+    context={'userX':userX}
     return render(request,'iTracker/about.html',context)
 
 def logout_view(request):
@@ -91,9 +92,8 @@ def thisProject(request,taskID):
 
 def NewProjectpage(request):
     temp =UserExtended.objects.get(user=request.user)
-    temp.team
-    teams = UserExtended.objects.filter(team = temp.team)
-    context={'teams':teams}
+    teamMembers = UserExtended.objects.filter(team = temp.team)
+    context={'teamsMembers':teamMembers}
     return render(request, 'iTracker/newProject.html',context)
 
 def processNewProject(request):
