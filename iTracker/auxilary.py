@@ -24,3 +24,6 @@ def createNewProj(ownerObj,name,description):
     )
     newProj.save()
     return newProj
+
+def getUser(username):
+    return UserExtended.objects.get(user=User.objects.get(username=username))

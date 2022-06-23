@@ -64,11 +64,9 @@ def tryLogIn(request):
         temp = UserExtended.objects.get(user =user)
         if user is not None:
             login(request, user)
-            
-            return myPage(request,user.username)
-               
-    
-    return logInPage(request)
+            return redirect('/iTracker/Dashboard/Team/'+str(temp.team.teamID))
+            # return myPage(request,user.username)
+    return redirect('/iTracker/logIn')
 
 def about(request):
     userX= UserExtended.objects.get(user=request.user)
@@ -110,7 +108,9 @@ def processNewProject(request):
 
 def postComment(request,taskID):
      commentInput = request.POST['comment']
-     newPost = Comment(description = commentInput, user = request.user, time = timezone.now, project=Project.objects.get(taskID = taskID)) 
+     userX=UserExtended.objects.get(user=request.user)
+     proj=Project.objects.get(taskID = taskID)
+     newPost = Comment(discuss = commentInput, user = userX, project=proj) 
      newPost.save()
      return redirect('/iTracker/project/'+str(taskID))
 
@@ -121,8 +121,18 @@ def closeTask(request,taskID):
     return redirect('/iTracker/Dashboard/Team/'+str(temp.team.teamID))
 
 def assignOwner(request,taskID):
-    assignedUsername = request.POST['assignee']
+    assignedUsername = request.POST['projOwner']
     proj = Project.objects.get(taskID= taskID)
-    proj.owner = UserExtended.objects.get(User.objects.get(username=assignedUsername))
+    proj.owner = getUser(assignedUsername)
+    proj.save()
+    return redirect('/iTracker/project/'+str(taskID))
+
+def updateStatus(request,taskID):
+    proj = Project.objects.get(taskID= taskID)
+    status = request.POST['status']
+    if status == "yes":
+        proj.doing =True
+    else:
+        proj.doing = False
     proj.save()
     return redirect('/iTracker/project/'+str(taskID))

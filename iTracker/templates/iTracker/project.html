@@ -2,14 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>This Project</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
-  {% load static %}
-  <link rel="stylesheet" type="text/css" href="{% static 'iTracker/CSS/style.css' %}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>  
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/b85eb17943.js" crossorigin="anonymous"></script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'iTracker/CSS/style.css' %}">
 
+    <title> Team Dashboard</title>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg bg-light"  >
@@ -61,19 +64,33 @@
     </div>
   </nav>
       <div class="container" style="background-color: white;">
+        <h1>{{project.projectName}} # {{project.taskID}}</h1>
         <div class="row">
           <div class="container col-sm">
-            <h1>{{project.projectName}} # {{project.taskID}}</h1>
-            
-            <form action="/iTracker/project/{{projec.taskID}/assign" method="post">
+            <form action="/iTracker/project/{{project.taskID}}/assign" method="post">{% csrf_token %}
               <label class="form-label select-label">Owner: </label>  
-              <select class="select form-control-sm" name="projOwner">
-                  <option value="">No Owner</option>
+              <select class="select form-control-sm" name="projOwner" onchange="form.submit()">
+                  <option value="">{{project.owner.user.username}}</option>
                   {% for member in teamMembers  %}
+                  {% if member.user.username != project.owner.user.username %}
                   <option value="{{ member.user.username }}">{{member.user.username}}</option>
+                  {% endif %}
                   {% endfor %}
               </select>
-              
+            </form>
+          </div>
+          <div class="container col-sm" >
+            <form action="/iTracker/project/{{project.taskID}}/status" method="post">{% csrf_token %}
+              <label class="form-label select-label">In Progress: </label>  
+              <select class="select form-control-sm" name="status" onchange="form.submit()">
+                {% if project.doing %}  
+                <option value="yes">Working on it</option>
+                <option value="no">On hold</option>
+                {% else %}
+                <option value="no">On hold</option>
+                <option value="yes">Working on it</option>
+                {% endif %}
+              </select>
             </form>
           </div>
           <div class="container col-sm" >
@@ -86,17 +103,16 @@
         <h3 >{{project.owner.username}}</h3>
         <h4>{{project.team.memberID}}</h4>
         <p>{{project.description}}</p>
-        <h3>Discussion</h3>
-        {% for comment in post%}
-        <div class="container">
-          <p>{{comment.discuss}}</p>
-          <p>{{comment.user.username}}</p>
-          <p>{{comment.time}}</p>
-        </div>
-        {% endfor %}
-        <div class="container" style="background-color: rgb(125, 125, 128)">
-          <br>
-          <form action="/iTracker/project/{{project.taskID}}/post" method = 'post'>
+        
+        <div class="container" style="background-color: rgb(192, 192, 192);">
+          <h3 style="color: white;">Discussion</h3>
+          {% for post in comments%}
+          <div class="container rounded-sm">
+            <p>{{post.discuss}}</p>
+            <p style="font-size: .8em; text-align:right">{{post.user.user.username}} {{post.time}}</p>
+          </div>
+          {% endfor %}
+          <form action="/iTracker/project/{{project.taskID}}/post" method = 'post'>{% csrf_token %}
             <textarea rows="3"   class="form-control" name='comment' ></textarea>
             <center><button type = "submit" class= "btn-primary" method="post"> Submit</button></center>
           </form>

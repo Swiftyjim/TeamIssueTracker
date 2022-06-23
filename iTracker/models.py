@@ -41,9 +41,9 @@ class Project(models.Model):
     # logo = models.ImageField()
 class Comment(models.Model):
     project = models.ForeignKey(Project,blank=True,on_delete=models.CASCADE)
-    discuss = models.CharField(max_length=1000)
+    discuss = models.TextField(max_length=1024,default='')
     user = models.ForeignKey(UserExtended,on_delete=models.CASCADE)
-    time = models.DateTimeField(auto_created=True,editable=False)
+    time = models.DateTimeField(auto_now=True,editable=False)
 
     def __str__(self):
         return self.user.user.username

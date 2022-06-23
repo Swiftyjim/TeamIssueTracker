@@ -19,4 +19,5 @@ urlpatterns = [
     path('project/<int:taskID>/post', views.postComment, name='postComment'),
     path('project/<int:taskID>/closeTask',views.closeTask,name='closeTask'),
     path('project/<int:taskID>/assign',views.assignOwner,name='assignOwner'),
+    path('project/<int:taskID>/status',views.updateStatus,name='updateStatus'),
 ]
