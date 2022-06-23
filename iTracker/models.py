@@ -19,6 +19,7 @@ class UserExtended(models.Model):
     team = models.ForeignKey(Team,on_delete=models.CASCADE,null=True)
     birthday = models.DateTimeField()
     teamAdmin = models.BooleanField(default=False)
+    avatar = models.ImageField()
     def __str__(self):
         return self.user.username
 
