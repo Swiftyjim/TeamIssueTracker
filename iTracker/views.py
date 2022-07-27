@@ -11,8 +11,9 @@ from .auxilary import *
 
 # Create your views here.
 def homePage(request):
-    userX=UserExtended.objects.get(user=request.user)
-    context={'userX':userX}
+    if request.user.is_authenticated:
+        userX = UserExtended.objects.get(user=request.user)
+        context = {"userX": userX}
     return render(request,'iTracker/homePage.html',context)
 
 def index(request,teamID):
@@ -98,7 +99,8 @@ def processNewProject(request):
     projectNameInput = request.POST['projName']
     projectDescriptionInput = request.POST['projDesc']
     projectOwnerInput = request.POST['projOwner']
-    createNewProj(UserExtended.objects.get(user=User.objects.get(username=projectOwnerInput)),projectNameInput,projectDescriptionInput)
+    projectTagInput = request.POST['projectTags']
+    createNewProj(UserExtended.objects.get(user=User.objects.get(username=projectOwnerInput)),projectNameInput,projectDescriptionInput,projectTagInput)
     currentProjects=Project.objects.filter(owner=UserExtended.objects.get(user=request.user))
     context={
         'currentProjects':currentProjects

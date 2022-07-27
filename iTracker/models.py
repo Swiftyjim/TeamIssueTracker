@@ -1,9 +1,10 @@
 
 from ast import Delete
+from email.policy import default
 from statistics import mode
 from django.db import models
 from django.contrib.auth.models import User
-
+from taggit.managers import TaggableManager
 # Create your models here.
 
 class Team(models.Model):
@@ -19,7 +20,7 @@ class UserExtended(models.Model):
     team = models.ForeignKey(Team,on_delete=models.CASCADE,null=True)
     birthday = models.DateTimeField()
     teamAdmin = models.BooleanField(default=False)
-    avatar = models.ImageField()
+    avatar = models.ImageField(upload_to="static/iTracker/images",default='static/iTrcker/images/default.jpg')
     def __str__(self):
         return self.user.username
 
@@ -34,7 +35,7 @@ class Project(models.Model):
     doing = models.BooleanField(default=False)
     team = models.ForeignKey(Team,on_delete=models.CASCADE,null=True)
     relatedTaskID = models.IntegerField(default=0)
-    
+    tags = TaggableManager()
     def __str__(self):
         return self.projectName
 

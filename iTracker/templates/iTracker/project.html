@@ -95,7 +95,7 @@
           </div>
           <div class="container col-sm" >
             <form action="/iTracker/project/{{project.taskID}}/closeTask"></form>
-              <button type = "submit" class="btn-primary" > Delete Tracked Issue</button>
+              <button type = "submit" class="btn-primary" > Close Tracked Issue</button>
             </form>
           </div>
         </div>
@@ -103,7 +103,14 @@
         <h3 >{{project.owner.username}}</h3>
         <h4>{{project.team.memberID}}</h4>
         <p>{{project.description}}</p>
-        
+        <div class="row">
+          <label>Tags #</label>
+          {% if project.tags.names %}
+          <input type="text" class="form-control" name='projectTags' value=""/>
+          {% else %} 
+          <input type="text" class="form-control" name='projectTags' value="{{project.tags.names}}"/>
+          {% endif %}
+      </div>
         <div class="container" style="background-color: rgb(192, 192, 192);">
           <h3 style="color: white;">Discussion</h3>
           {% for post in comments%}

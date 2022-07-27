@@ -15,12 +15,13 @@ def signUp_aux(usernameInput,passwordInput ,firstInput,lastInput,emailInput,birt
     user.save()
     return userExtended
 
-def createNewProj(ownerObj,name,description):
+def createNewProj(ownerObj,name,description,tags):
     newProj = Project(
         owner = ownerObj,
         projectName = name,
         description  = description,
         team = ownerObj.team,
+        tags = tags,
     )
     newProj.save()
     return newProj
