@@ -104,9 +104,15 @@
             </form>
           </div>
           <div class="container col-sm" >
+            {% if project.valid %}
             <form action="/iTracker/project/{{project.taskID}}/closeTask">
-              <button type = "submit" class="btn-primary" > Close Tracked Issue</button>
+              <button type = "submit" class="btn-primary" > Close Issue</button>
             </form>
+            {% else %}
+            <form action="/iTracker/project/{{project.taskID}}/openTask">
+              <button type = "submit" class="btn-primary" > Open Issue</button>
+            </form>
+            {% endif %}
           </div>
         </div>
         <p>{{project.description}}</p>

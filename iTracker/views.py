@@ -54,7 +54,7 @@ def register(request):
 def logInPage(request):
     if request.user.is_authenticated:
         temp = UserExtended.objects.get(user=request.user)
-        response = redirect('Dashboard/Team/'+str(temp.team.teamID))
+        response = redirect('/iTracker/Dashboard/Team/'+str(temp.team.teamID))
         return response
     else:
         return render(request,'iTracker/loginPage.html')
@@ -119,10 +119,18 @@ def postComment(request,taskID):
      return redirect('/iTracker/project/'+str(taskID))
 
 def closeTask(request,taskID):
-    proj = Project.objects.filter(taskID=taskID).delete()
+    proj = Project.objects.get(taskID=taskID)
+    proj.valid= False
+    proj.save()
     temp=UserExtended.objects.get(user=request.user)
-    temp.team.teamID
-    return redirect('/iTracker/Dashboard/Team/'+str(temp.team.teamID))
+    return redirect('/iTracker/project/'+str(taskID))
+    
+def openTask(request,taskID):
+    proj = Project.objects.get(taskID=taskID)
+    proj.valid= True
+    proj.save()
+    temp=UserExtended.objects.get(user=request.user)
+    return redirect('/iTracker/project/'+str(taskID))
 
 def assignOwner(request,taskID):
     assignedUsername = request.POST['projOwner']

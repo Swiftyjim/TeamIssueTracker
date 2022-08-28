@@ -36,6 +36,7 @@ class Project(models.Model):
     team = models.ForeignKey(Team,on_delete=models.CASCADE,null=True)
     relatedTaskID = models.IntegerField(default=0)
     tags = TaggableManager()
+    valid = models.BooleanField(default = True)
     def __str__(self):
         return self.projectName
 
