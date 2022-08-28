@@ -48,7 +48,7 @@ def register(request):
     teamInput = request.POST['team']
     user = signUp_aux(usernameInput,passwordInput ,firstInput,lastInput,emailInput,birthdayInput,Team.objects.get(name=teamInput))
     login(request,user)
-    return myPage(request,usernameINPUT)
+    return myPage(request,usernameInput)
 
 
 def logInPage(request):
