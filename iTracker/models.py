@@ -20,7 +20,7 @@ class UserExtended(models.Model):
     team = models.ForeignKey(Team,on_delete=models.CASCADE,null=True)
     birthday = models.DateTimeField()
     teamAdmin = models.BooleanField(default=False)
-    avatar = models.ImageField(upload_to="static/iTracker/images",default='static/iTrcker/images/default.jpg')
+    avatar = models.ImageField(upload_to="static/iTracker/images",default='static/iTracker/images/default.jpg')
     def __str__(self):
         return self.user.username
 

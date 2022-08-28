@@ -64,75 +64,21 @@
     </div>
   </nav>
       <div class="container" style="background-color: white;">
-        <div class="row">
-          <div class="col-sm">
-            <h1>{{project.projectName}} # {{project.taskID}}</h1>
-          </div>
-          <div class="col"></div>
-          <div class="col-sm">
-            <form action="/iTracker/project/{{project.taskID}}/editProject">
-              <button type = "submit" class="btn-primary" style="position: right;"> Edit</button>
-            </form>
-          </div>
-      </div>
-        <div class="row">
-          <div class="container col-sm">
-            <form action="/iTracker/project/{{project.taskID}}/assign" method="post">{% csrf_token %}
-              <label class="form-label select-label">Owner: </label>  
-              <select class="select form-control-sm" name="projOwner" onchange="form.submit()">
-                  <option value="">{{project.owner.user.username}}</option>
-                  {% for member in teamMembers  %}
-                  {% if member.user.username != project.owner.user.username %}
-                  <option value="{{ member.user.username }}">{{member.user.username}}</option>
-                  {% endif %}
-                  {% endfor %}
-              </select>
-            </form>
-          </div>
-          <div class="container col-sm" >
-            <form action="/iTracker/project/{{project.taskID}}/status" method="post">{% csrf_token %}
-              <label class="form-label select-label">In Progress: </label>  
-              <select class="select form-control-sm" name="status" onchange="form.submit()">
-                {% if project.doing %}  
-                <option value="yes">Working on it</option>
-                <option value="no">On hold</option>
-                {% else %}
-                <option value="no">On hold</option>
-                <option value="yes">Working on it</option>
-                {% endif %}
-              </select>
-            </form>
-          </div>
-          <div class="container col-sm" >
-            <form action="/iTracker/project/{{project.taskID}}/closeTask">
-              <button type = "submit" class="btn-primary" > Close Tracked Issue</button>
-            </form>
-          </div>
-        </div>
-        <p>{{project.description}}</p>
-        <div class="row">
-          <label>Tags #</label>
-          {% if project.tags.names %}
-          <input type="text" class="form-control" name='projectTags' value=""/>
-          {% else %} 
-          <input type="text" class="form-control" name='projectTags' value="{{project.tags.names}}"/>
-          {% endif %}
-      </div>
-        <div class="container" style="background-color: rgb(192, 192, 192);">
-          <h3 style="color: white;">Discussion</h3>
-          {% for post in comments%}
-          <div class="container rounded-sm">
-            <p>{{post.discuss}}</p>
-            <p style="font-size: .8em; text-align:right">{{post.user.user.username}} {{post.time}}</p>
-          </div>
-          {% endfor %}
-          <form action="/iTracker/project/{{project.taskID}}/post" method = 'post'>{% csrf_token %}
-            <textarea rows="3"   class="form-control" name='comment' ></textarea>
-            <center><button type = "submit" class= "btn-primary" method="post"> Submit</button></center>
-          </form>
-        </div>
+        <form action="/iTracker/project/{{project.taskID}}/save" method = 'post'> {% csrf_token %}
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form2Example1">Project Name</label>
+                <input type="username" class="form-control" name='newName' value="{{project.projectName}}"/>
+            </div>
+            <div class="form-outline mb-4">
+                <label>Description</label>
+                <textarea rows="3"   class="form-control" name='newDescription' >{{project.description}}</textarea>
+                <center><button type = "submit" class= "btn-primary" method="post"> Save</button></center>
+                </form>
+            </div>
+
+        </form>
       
-      </div>
+        </div>
     <div class="container" id="footer"  style="background-color: white;">
       <footer class="py-3 my-4">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">

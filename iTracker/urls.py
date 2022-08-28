@@ -20,4 +20,7 @@ urlpatterns = [
     path('project/<int:taskID>/closeTask',views.closeTask,name='closeTask'),
     path('project/<int:taskID>/assign',views.assignOwner,name='assignOwner'),
     path('project/<int:taskID>/status',views.updateStatus,name='updateStatus'),
+    path('project/<int:taskID>/editProject',views.editProject,name='editProject'),
+    path('project/<int:taskID>/save',views.saveProject,name='saveProject'),
+    
 ]

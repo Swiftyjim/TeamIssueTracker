@@ -14,6 +14,8 @@ def homePage(request):
     if request.user.is_authenticated:
         userX = UserExtended.objects.get(user=request.user)
         context = {"userX": userX}
+    else:
+        context={}
     return render(request,'iTracker/homePage.html',context)
 
 def index(request,teamID):
@@ -136,5 +138,19 @@ def updateStatus(request,taskID):
         proj.doing =True
     else:
         proj.doing = False
+    proj.save()
+    return redirect('/iTracker/project/'+str(taskID))
+
+def editProject(request,taskID):
+    project = Project.objects.get(taskID= taskID)
+    context={'project':project}
+    return render(request,'iTracker/editProject.html',context)
+
+def saveProject(request,taskID):
+    projectNameInput = request.POST['newName']
+    projectDescriptionInput = request.POST['newDescription']
+    proj = Project.objects.get(taskID= taskID)
+    proj.projectName=projectNameInput
+    proj.description = projectDescriptionInput
     proj.save()
     return redirect('/iTracker/project/'+str(taskID))
