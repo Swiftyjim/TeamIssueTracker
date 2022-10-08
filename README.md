@@ -1,5 +1,5 @@
 # TeamIssueTracker
-Project is a team issue tracking web app, using Django pythong framework. In development.
+Project is a team issue tracking web app, using Django python framework. In development.
 
 Features include:
 -Team and project tracking
